@@ -1,8 +1,8 @@
 import express from 'express';
 import pinoHTTP from 'pino-http';
 import cors from 'cors';
-import { Contact } from './models/contact.js';
 import 'dotenv/config';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 async function setupServer() {
   const app = express();
@@ -23,7 +23,7 @@ async function setupServer() {
 
   app.get('/contacts', async (req, res) => {
     try {
-      const students = await Contact.find();
+      const students = await getAllContacts();
 
       res.send({
         status: 200,
@@ -40,7 +40,7 @@ async function setupServer() {
     try {
       const { contactId } = req.params;
 
-      const contact = await Contact.findById(contactId);
+      const contact = await getContactById(contactId);
 
       if (contact === null) {
         return res
