@@ -6,11 +6,15 @@ export const getAllContacts = async ({ page, perPage }) => {
   const skip = (page - 1) * perPage;
 
   const contactsQuery = Contact.find();
-  const contactsCount = await Contact.find()
-    .merge(contactsQuery)
-    .countDocuments();
 
-  const contacts = await Contact.find().skip(skip).limit(limit).exec();
+  // const contactsCount = await Contact.find()
+  //   .merge(contactsQuery)
+  //   .countDocuments();
+  // const contacts = await Contact.find().skip(skip).limit(limit).exec();
+  const [contactsCount, contacts] = await Promise.all([
+    await Contact.find().merge(contactsQuery).countDocuments(),
+    await Contact.find().skip(skip).limit(limit).exec(),
+  ]);
 
   const paginationData = calculatePaginationData(contactsCount, perPage, page);
 
