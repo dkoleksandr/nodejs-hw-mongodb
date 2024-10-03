@@ -10,12 +10,16 @@ export const checkOwnership = () => async (req, res, next) => {
 
   const { contactId } = req.params;
 
-  const contact = await Contact.findOne({
+  const contact = await Contact.findById({
     _id: contactId,
-    userId: user._id,
   });
 
-  if (contact) {
+  if (!contact) {
+    next(createHttpError(404));
+    return;
+  }
+
+  if (contact && req.user._id.equals(contact.userId)) {
     next();
     return;
   }
