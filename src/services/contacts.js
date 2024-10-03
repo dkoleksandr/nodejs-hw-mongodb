@@ -8,7 +8,7 @@ export const getAllContacts = async ({
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
-  user
+  user,
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
@@ -50,9 +50,9 @@ export const createContact = async (payload) => {
   return contact;
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
+export const updateContact = async (contactId, payload, user, options = {}) => {
   const rawResult = await Contact.findOneAndUpdate(
-    { _id: contactId },
+    { _id: contactId, userId: user._id },
     payload,
     {
       new: true,
@@ -69,9 +69,10 @@ export const updateContact = async (contactId, payload, options = {}) => {
   };
 };
 
-export const deleteContact = async (contactId) => {
+export const deleteContact = async (contactId, user) => {
   const contact = await Contact.findOneAndDelete({
     _id: contactId,
+    userId: user._id,
   });
 
   return contact;
