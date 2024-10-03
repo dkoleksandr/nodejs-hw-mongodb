@@ -30,7 +30,7 @@ router.get(
 );
 
 router.post(
-  '/create',
+  '/',
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );

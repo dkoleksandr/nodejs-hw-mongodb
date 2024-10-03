@@ -14,13 +14,15 @@ export const getContactsController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
+  const { user } = req;
 
   const students = await getAllContacts({
     page,
     perPage,
     sortBy,
     sortOrder,
-    filter
+    filter,
+    user
   });
 
   res.send({
