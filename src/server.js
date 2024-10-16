@@ -6,6 +6,7 @@ import router from './routers/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 
 async function setupServer() {
   const app = express();
@@ -22,10 +23,12 @@ async function setupServer() {
 
   app.use(pino);
 
-    app.get('/', (req, res) => {
-      res.send({ status: 200, message: 'Hello, World!' });
-    });
-  
+  app.get('/', (req, res) => {
+    res.send({ status: 200, message: 'Hello, World!' });
+  });
+
+  app.use('/uploads', express.static(UPLOAD_DIR));
+
   app.use(router);
 
   app.use(notFoundHandler);
@@ -33,7 +36,7 @@ async function setupServer() {
   app.use(errorHandler);
 
   const PORT = process.env.PORT || 3000;
-  
+
   app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
   });

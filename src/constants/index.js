@@ -19,11 +19,12 @@ export const SMTP = {
 export const ENV_VARS = {
   JWT_SECRET: 'JWT_SECRET',
   APP_DOMAIN: 'APP_DOMAIN',
-  // BACKEND_DOMAIN: 'BACKEND_DOMAIN',
-  // CLOUDINARY_API_KEY: 'CLOUDINARY_API_KEY',
-  // CLOUDINARY_API_SECRET: 'CLOUDINARY_API_SECRET',
-  // CLOUDINARY_CLOUND_NAME: 'CLOUDINARY_CLOUND_NAME',
-  // IS_CLOUDINARY_ENABLED: 'IS_CLOUDINARY_ENABLED',
+  CLOUDINARY_API_KEY: 'CLOUDINARY_API_KEY',
+  CLOUDINARY_API_SECRET: 'CLOUDINARY_API_SECRET',
+  CLOUDINARY_CLOUND_NAME: 'CLOUDINARY_CLOUND_NAME'
 };
 
 export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
+
+export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'src', 'temp');
+export const UPLOAD_DIR = path.join(process.cwd(), 'src', 'uploads');
