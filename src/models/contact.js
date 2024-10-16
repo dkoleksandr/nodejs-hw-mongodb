@@ -25,6 +25,7 @@ const contactSchema = new mongoose.Schema(
       default: 'personal',
     },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: UsersCollection },
+    photo: { type: String, default: null },
   },
   {
     timestamps: true,
