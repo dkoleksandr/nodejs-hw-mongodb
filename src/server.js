@@ -2,15 +2,17 @@ import express from 'express';
 import pinoHTTP from 'pino-http';
 import cors from 'cors';
 import 'dotenv/config';
-import contactsRouter from './routers/contacts.js';
+import router from './routers/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import cookieParser from 'cookie-parser';
 
 async function setupServer() {
   const app = express();
 
   app.use(express.json());
   app.use(cors());
+  app.use(cookieParser());
 
   const pino = pinoHTTP({
     transport: {
@@ -24,7 +26,7 @@ async function setupServer() {
       res.send({ status: 200, message: 'Hello, World!' });
     });
   
-  app.use(contactsRouter);
+  app.use(router);
 
   app.use(notFoundHandler);
 

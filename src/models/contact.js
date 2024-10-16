@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { UsersCollection } from './user.js';
 
 const contactSchema = new mongoose.Schema(
   {
@@ -23,6 +24,7 @@ const contactSchema = new mongoose.Schema(
       required: true,
       default: 'personal',
     },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: UsersCollection },
   },
   {
     timestamps: true,
